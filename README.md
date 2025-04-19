@@ -9,9 +9,9 @@ Great for keeping your files in sync across multiple repositories. A good use ca
 
 I have a main repo where these are synced from, and then they are kept in sync with the main repository.
 
-If I need to make a change, rather than go make a change x many times across all my repositories, I make the change once, and on push to the main repository, all my child repositories are updated. 
+If I need to make a change, rather than go make a change x many times across all my repositories, I make the change once, and on push to the main repository, all my child repositories are updated.
 
-Another example is if you're creating new Github Actions for a repository, you can make them once, check them into main repository, and then deploy them all across all your repositories all at once. 
+Another example is if you're creating new Github Actions for a repository, you can make them once, check them into main repository, and then deploy them all across all your repositories all at once.
 
 This also isn't limited to Github Action yaml files - another use case could be keeping the `.editorconfig`, `LICENSE`, `tsconfig.json`, `eslintrc.yml`, `.gitignore`, `azure-pieplines.yml`, etc. in sync across all your repositories.
 
@@ -51,7 +51,6 @@ jobs:
 | --- | --- | --- |
 | REPOSITORIES | true | List of repositories to sync the files to. Optionally provide branch name |
 | FILES | true | List of files to sync across repositories. See below for details |
-| PULL_REQUEST_BRANCH_NAME | false | Branch name of branch to do pull request into. Default is no pull request opened |
 | GIT_EMAIL | false | Git email to use |
 | GIT_USERNAME | false | Git username to use |
 | TOKEN | true | Personal Access Token with repo scope, and workflow scope if managing Actions-related files |
