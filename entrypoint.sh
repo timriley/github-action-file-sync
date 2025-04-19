@@ -123,9 +123,25 @@ for repository in "${REPOSITORIES[@]}"; do
                 mkdir -p $DEST_FOLDER_PATH
             fi
 
-            # copy file
-            echo "Copying: [$SOURCE_FULL_PATH] to [$DEST_FULL_PATH]"
-            cp "${SOURCE_FULL_PATH}" "${DEST_FULL_PATH}" -r
+            if [[ "$SOURCE_FULL_PATH" == *.tpl ]]; then
+              # Check if project.toml exists in the target repository
+              PROJECT_TOML="${GIT_PATH}/project.toml"
+              if [ -f "$PROJECT_TOML" ]; then
+                echo "Using project.toml from target repository"
+
+                # Process the template and save to destination
+                echo "Processing template to: [$DEST_FULL_PATH]"
+                tpl --file "$SOURCE_FULL_PATH" --decoder toml < "$PROJECT_TOML" > "$DEST_FULL_PATH"
+              else
+                echo "WARNING: project.toml not found in target repository, copying template as is"
+                echo "Copying: [$SOURCE_FULL_PATH] to [$DEST_FULL_PATH]"
+                cp "${SOURCE_FULL_PATH}" "${DEST_FULL_PATH}" -r
+              fi
+            else
+              # copy file verbatim
+              echo "Copying: [$SOURCE_FULL_PATH] to [$DEST_FULL_PATH]"
+              cp "${SOURCE_FULL_PATH}" "${DEST_FULL_PATH}" -r
+            fi
 
             # add file
             git add "${DEST_FULL_PATH}" -f

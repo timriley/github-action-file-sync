@@ -11,6 +11,10 @@ RUN apk add jq
 # add curl for pull requests via github api
 RUN apk add curl
 
+# install go-template-cli for template processing
+RUN curl -fsSL https://github.com/bluebrown/go-template-cli/releases/download/v0.3.2/tpl-linux-amd64-static > /usr/local/bin/tpl && \
+  chmod 755 /usr/local/bin/tpl
+
 COPY error-matcher.json /error-matcher.json
 
 COPY entrypoint.sh /entrypoint.sh
